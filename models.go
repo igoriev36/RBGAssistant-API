@@ -5,7 +5,7 @@ import (
 )
 
 type Character struct {
-	ID      uint `gorm:"primary_key"`
+	ID      string `gorm:"primary_key"`
 	Name    string
 	Realm   string
 	Guild   string
@@ -20,7 +20,7 @@ type Battle struct {
 	Map        string
 	Winner     string
 	Leader     Character
-	RecordedBy string
+	RecordedBy Character
 	IsRated    bool
 	Scores     []Score
 }
