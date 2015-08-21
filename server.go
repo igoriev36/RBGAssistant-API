@@ -93,7 +93,7 @@ func saveBattle(s string) {
 		Time    string `json:"time"`
 		Map     string `json:"map"`
 		Leader  string `json:"leader"`
-		Winner  string `json:"winnger"`
+		Winner  string `json:"winner"`
 		Player  string `json:"player"`
 		IsRated bool   `json:"is_rated"`
 		Scores  []struct {
@@ -121,6 +121,27 @@ func saveBattle(s string) {
 		fmt.Println(err)
 	}
 
+	// Save Battle
+	leader := Character{}
+	db.FirstOrCreate(&leader, Character{ID: bg.Leader})
+
+	player := Character{}
+	db.FirstOrCreate(&player, Character{ID: bg.Leader})
+
+	pt, _ := time.Parse("2006-01-02 15:04", bg.Time)
+
+	b := Battle{
+		PlayedAt:   pt,
+		Map:        bg.Map,
+		Winner:     bg.Winner,
+		Leader:     leader,
+		RecordedBy: player,
+		IsRated:    bg.IsRated,
+	}
+
+	db.Save(&b)
+
+	// Save Scores
 	scores := []Score{}
 
 	for _, score := range bg.Scores {
@@ -145,6 +166,7 @@ func saveBattle(s string) {
 		db.Save(&c)
 
 		score := Score{
+			Battle:         b,
 			Character:      c,
 			KillingBlows:   score.Kb,
 			HonorableKills: score.Hk,
@@ -158,23 +180,9 @@ func saveBattle(s string) {
 			MmrChange:      score.MmrChange,
 			TalentSpec:     score.TalentSpec,
 		}
-	}
 
-	leader := Character{}
-	db.FirstOrCreate(&leader, Character{ID: bg.Leader})
-
-	player := Character{}
-	db.FirstOrCreate(&player, Character{ID: bg.Leader})
-
-	pt, _ := time.Parse("2006-01-02 15:04", bg.Time)
-
-	b := Battle{
-		PlayedAt:   pt,
-		Map:        bg.Map,
-		Winner:     bg.Winner,
-		Leader:     leader,
-		RecordedBy: player,
-		IsRated:    bg.IsRated,
+		db.Save(&score)
+		scores = append(scores, score)
 	}
 
 	fmt.Println(bg)

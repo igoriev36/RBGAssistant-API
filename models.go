@@ -27,6 +27,7 @@ type Battle struct {
 
 type Score struct {
 	ID             uint `gorm:"primary_key"`
+	Battle         Battle
 	Character      Character
 	KillingBlows   int
 	HonorableKills int
