@@ -1,0 +1,7 @@
+<h1>Characters</h1>
+{{ range .Characters }}
+	<h3>{{ .Name }}</h3>
+{{ else }}
+	<p>Sorry, no characters found.</p>
+{{ end }}
+	
