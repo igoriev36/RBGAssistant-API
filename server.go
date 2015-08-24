@@ -77,7 +77,7 @@ func main() {
 		}
 
 		if err = scanner.Err(); err != nil {
-			fmt.Fprintln(w, err)
+			//fmt.Fprintln(w, err)
 			return
 		}
 
@@ -87,7 +87,7 @@ func main() {
 }
 
 func saveBattle(s string) {
-	fmt.Println(s)
+	//fmt.Println(s)
 
 	type BG struct {
 		Time    string `json:"time"`

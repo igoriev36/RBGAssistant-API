@@ -15,19 +15,23 @@ type Character struct {
 }
 
 type Battle struct {
-	ID         uint `gorm:"primary_key"`
-	PlayedAt   time.Time
-	Map        string
-	Winner     string
-	Leader     Character
-	RecordedBy Character
-	IsRated    bool
-	Scores     []Score
+	ID           uint `gorm:"primary_key"`
+	PlayedAt     time.Time
+	Map          string
+	Winner       string
+	LeaderID     string
+	RecordedByID string
+	Leader       Character `sql:foreign_key("leader_id")`
+	RecordedBy   Character `sql:foreign_key("recorded_by_id")`
+	IsRated      bool
+	Scores       []Score
 }
 
 type Score struct {
 	ID             uint `gorm:"primary_key"`
+	BattleID       uint
 	Battle         Battle
+	CharacterID    string
 	Character      Character
 	KillingBlows   int
 	HonorableKills int
