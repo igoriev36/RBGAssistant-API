@@ -5,13 +5,14 @@ import (
 )
 
 type Character struct {
-	ID      string `gorm:"primary_key"`
-	Name    string
-	Realm   string
-	Guild   string
-	Faction string
-	Race    string
-	Class   string
+	ID         string `gorm:"primary_key"`
+	Name       string
+	Realm      string
+	Guild      string
+	Faction    string
+	Race       string
+	Class      string
+	BattlesLed []Battle `gorm:"has_many:Leader"`
 }
 
 type Battle struct {

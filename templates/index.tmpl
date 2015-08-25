@@ -1,6 +1,6 @@
 <h3>RBG Leaders</h3>
-{{ range .Characters }}
-	<h3><a href="/leaders/{{ .Name }}/battles">{{ .ID }}</a></h3>
+{{ range .Leaders }}
+	<h3><a href="/leaders/{{ .Leader }}/battles">{{ .Leader }} - {{ .Count }}</a></h3>
 {{ else }}
 	<p>Sorry, no leaders found.</p>
 {{ end }}

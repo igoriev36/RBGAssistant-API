@@ -1,6 +1,7 @@
 package main
 
 import (
+	//"fmt"
 	"github.com/go-martini/martini"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -33,10 +34,13 @@ func main() {
 	// Home
 	m.Get("/", func(out render.Render) {
 		var retData struct {
-			Characters []Character
+			Leaders []struct {
+				Leader string
+				Count  uint
+			}
 		}
 
-		db.Joins("inner join battles on battles.leader_id = characters.id").Where("battles.is_rated = ?", true).Find(&retData.Characters)
+		db.Table("battles").Select("leader_id as leader, count(*) as count").Scan(&retData.Leaders)
 
 		out.HTML(200, "index", retData)
 	})
