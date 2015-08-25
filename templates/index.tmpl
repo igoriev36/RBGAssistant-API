@@ -1,7 +1,7 @@
-<h1>Characters</h1>
+<h3>RBG Leaders</h3>
 {{ range .Characters }}
-	<h3>{{ .Name }}</h3>
+	<h3><a href="/leaders/{{ .Name }}/battles">{{ .ID }}</a></h3>
 {{ else }}
-	<p>Sorry, no characters found.</p>
+	<p>Sorry, no leaders found.</p>
 {{ end }}
 	
