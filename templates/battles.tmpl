@@ -1,0 +1,12 @@
+<h3>{{ .Leader.ID }}</h3>
+<table class="table">
+{{ range .Battles }}
+	<tr>
+		<td>{{ .PlayedAt }}</td>
+		<td>{{ .Map }}</td>
+		<td>{{ .Winner }}</td>
+	</tr>
+{{ else }}
+	<tr><td><p>Sorry, no battles found.</p></td></tr>
+{{ end }}
+</table>

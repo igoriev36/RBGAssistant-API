@@ -53,5 +53,20 @@ func main() {
 
 	m.Post("/upload", upload_battle)
 
+	m.Get("/leaders/:leader_id/battles", func(params martini.Params, r render.Render) {
+		var retData struct {
+			Battles []Battle
+			Leader  Character
+		}
+
+		retData.Leader = Character{ID: params["leader_id"]}
+
+		db.Find(&retData.Leader)
+
+		db.Where("leader_id = ?", params["leader_id"]).Find(&retData.Battles)
+
+		r.HTML(200, "battles", retData)
+	})
+
 	m.Run()
 }
